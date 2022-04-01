@@ -1,41 +1,8 @@
-FROM rockylinux:8.5
+FROM almalinux:8.5
 MAINTAINER Sean Cline <smcline06@gmail.com>
 
 ## --- SUPPORTING FILES ---
 COPY cacti /cacti_install
-
-## --- UPDATE OS, INSTALL EPEL ---
-RUN \
-    yum update -y && \
-    yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
-    yum install -y dnf-plugins-core && \
-    yum config-manager --set-enabled powertools && \
-    yum -y --enablerepo=powertools install elinks && \
-    yum clean all
-
-## --- PHP EXTENTIONS ---
-RUN \
-    yum install -y \
-        php php-xml php-session php-sockets php-ldap php-gd \
-        php-json php-mysqlnd php-gmp php-mbstring php-posix \
-        php-snmp php-intl php-common php-cli php-devel php-pear \
-        php-pdo && \
-    yum clean all
-
-## --- CACTI/SPINE Requirements ---
-RUN \
-    yum install -y \
-        rrdtool net-snmp net-snmp-utils cronie mariadb autoconf \
-        bison openssl openldap mod_ssl net-snmp-libs automake \
-        gcc gzip libtool make net-snmp-devel dos2unix m4 which \
-        openssl-devel mariadb-devel sendmail curl wget help2man && \
-    yum clean all
-
-## --- Other/Requests ---
-RUN \
-    yum install -y \
-        perl-libwww-perl && \
-    yum clean all
 
 ## --- SERVICE CONFIGS ---
 COPY configs /template_configs
@@ -51,17 +18,37 @@ COPY upgrade.sh /upgrade.sh
 COPY restore.sh /restore.sh
 COPY backup.sh /backup.sh
 
-RUN  \
+## --- UPDATE OS, INSTALL EPEL ---
+RUN \
+    dnf update -y && \
+    dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+    dnf install -y dnf-plugins-core && \
+    dnf config-manager --set-enabled powertools && \
+    dnf -y --enablerepo=powertools install elinks && \
+    dnf clean all && \
+## --- PHP EXTENTIONS ---
+    dnf install -y --allowerasing \
+        php php-xml php-session php-sockets php-ldap php-gd \
+        php-json php-mysqlnd php-gmp php-mbstring php-posix \
+        php-snmp php-intl php-common php-cli php-devel php-pear \
+        php-pdo \
+## --- CACTI/SPINE Requirements ---
+        rrdtool net-snmp net-snmp-utils cronie mariadb autoconf \
+        bison openssl openldap mod_ssl net-snmp-libs automake \
+        gcc gzip libtool make net-snmp-devel dos2unix m4 which \
+        openssl-devel mariadb-devel sendmail curl wget help2man \
+## --- Other/Requests ---
+        perl-libwww-perl && \
+    dnf clean all && \
     chmod +x /upgrade.sh && \
     chmod +x /restore.sh && \
     chmod +x /backup.sh && \
     mkdir /backups && \
     mkdir /cacti && \
-    mkdir /spine
-
+    mkdir /spine && \
 ## -- MISC SETUP --
-RUN echo "ServerName localhost" > /etc/httpd/conf.d/fqdn.conf
-RUN /usr/libexec/httpd-ssl-gencerts
+    echo "ServerName localhost" > /etc/httpd/conf.d/fqdn.conf && \
+    /usr/libexec/httpd-ssl-gencerts
 
 ## --- ENV ---
 ENV \
