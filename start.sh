@@ -14,12 +14,12 @@ ln -s /usr/share/zoneinfo/${TZ} /etc/localtime
 # remove php-snmp if asked, required for snmpv3 to function correctly. Disabled by default
 if [ ${PHP_SNMP} = 0 ]; then
     echo "$(date +%F_%R) [PHP-SNMP] Removing php-snmp since ENV variable 'PHP_SNMP' is set to 0"
-    yum remove -y --noautoremove php-snmp
-    yum clean all
+    dnf remove -y --noautoremove php-snmp
+    dnf clean all
     else
     echo "$(date +%F_%R) [PHP-SNMP] Insalling php-snmp since ENV variable 'PHP_SNMP' is set to 1"
-    yum install -y php-snmp
-    yum clean all
+    dnf install -y php-snmp
+    dnf clean all
 fi
 
 # verify if initial install steps are required, if lock file does not exist run the following   
@@ -180,7 +180,7 @@ fi
 
 # start cron service
 echo "$(date +%F_%R) [Note] Starting crond service."
-/usr/sbin/crond -n &
+/usr/sbin/crond -npP &
 
 # start snmp servics
 echo "$(date +%F_%R) [Note] Starting snmpd service."
