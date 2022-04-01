@@ -1,5 +1,5 @@
 FROM almalinux:8.5
-MAINTAINER Sean Cline <smcline06@gmail.com>
+MAINTAINER Heru Sasongko <heru@outlook.com>
 
 ## --- SUPPORTING FILES ---
 COPY cacti /cacti_install

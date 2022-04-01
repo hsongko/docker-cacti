@@ -12,15 +12,15 @@ rm /etc/localtime
 ln -s /usr/share/zoneinfo/${TZ} /etc/localtime
 
 # remove php-snmp if asked, required for snmpv3 to function correctly. Disabled by default
-if [ ${PHP_SNMP} = 0 ]; then
-    echo "$(date +%F_%R) [PHP-SNMP] Removing php-snmp since ENV variable 'PHP_SNMP' is set to 0"
-    dnf remove -y --noautoremove php-snmp
-    dnf clean all
-    else
-    echo "$(date +%F_%R) [PHP-SNMP] Insalling php-snmp since ENV variable 'PHP_SNMP' is set to 1"
-    dnf install -y php-snmp
-    dnf clean all
-fi
+#if [ ${PHP_SNMP} = 0 ]; then
+#    echo "$(date +%F_%R) [PHP-SNMP] Removing php-snmp since ENV variable 'PHP_SNMP' is set to 0"
+#    dnf remove -y --noautoremove php-snmp
+#    dnf clean all
+#    else
+#    echo "$(date +%F_%R) [PHP-SNMP] Insalling php-snmp since ENV variable 'PHP_SNMP' is set to 1"
+#    dnf install -y php-snmp
+#    dnf clean all
+#fi
 
 # verify if initial install steps are required, if lock file does not exist run the following   
 if [ ! -f /cacti/install.lock ]; then

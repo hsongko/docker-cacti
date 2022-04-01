@@ -1,7 +1,7 @@
 ﻿# Cacti v1+ Docker Container
 
-#### Dockerhub [![](https://images.microbadger.com/badges/image/smcline06/cacti.svg)](https://microbadger.com/images/smcline06/cacti "Get your own image badge on microbadger.com")[![Stars on Docker Hub](https://img.shields.io/docker/stars/smcline06/cacti.svg)](https://hub.docker.com/r/smcline06/cacti)[![Pulls on Docker Hub](https://img.shields.io/docker/pulls/smcline06/cacti.svg)](https://hub.docker.com/r/smcline06/cacti)  
-#### Github [![GitHub Open Issues](https://img.shields.io/github/issues/scline/docker-cacti.svg)](https://github.com/scline/docker-cacti/issues)[![GitHub Stars](https://img.shields.io/github/stars/scline/docker-cacti.svg)](https://github.com/scline/docker-cacti)[![GitHub Forks](https://img.shields.io/github/forks/scline/docker-cacti.svg)](https://github.com/scline/docker-cacti) 
+#### Dockerhub [![](https://images.microbadger.com/badges/image/herusasongko/cacti.svg)](https://microbadger.com/images/herusasongko/cacti "Get your own image badge on microbadger.com")[![Stars on Docker Hub](https://img.shields.io/docker/stars/herusasongko/cacti.svg)](https://hub.docker.com/r/herusasongko/cacti)[![Pulls on Docker Hub](https://img.shields.io/docker/pulls/herusasongko/cacti.svg)](https://hub.docker.com/r/herusasongko/cacti)  
+
 
 ## Cacti System
 Cacti is a complete network graphing solution designed to harness the power of RRDTool's data storage and graphing functionality. Cacti provides following features:
@@ -200,6 +200,13 @@ REPLACE INTO `%DB_NAME%`.`settings` (`name`, `value`) VALUES('poller_type', '2')
 ```
 
 # Change Log
+#### 1.2.19 - 01/04/2022
+ * Update Cacti and Spine from 1.2.17 to 1.2.19
+  * [changelog][CL1.2.19]
+ * Change image base to Almalinux
+ * Optimize image size
+ * Fix crond parameter
+
 #### 1.2.17 - 05/11/2021
  * Update Cacti and Spine from 1.2.16 to 1.2.17
    * [changelog][CL1.2.17]
@@ -267,6 +274,7 @@ REPLACE INTO `%DB_NAME%`.`settings` (`name`, `value`) VALUES('poller_type', '2')
 * Auto import remote pollers, currently you need to navigate to there GUI for a few clicks.
 * Documentation cleanup.
 
+[CL1.2.19]: http://www.cacti.net/release_notes.php?version=1.2.19
 [CL1.2.17]: http://www.cacti.net/release_notes.php?version=1.2.17
 [CL1.2.16]: http://www.cacti.net/release_notes.php?version=1.2.16
 [CL1.2.15]: http://www.cacti.net/release_notes.php?version=1.2.15
